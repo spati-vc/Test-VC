@@ -1,0 +1,23 @@
+logging:
+    logger_options:
+        base_level: 'DEBUG'
+
+event_enqueuers:
+    default_type: "kafka"
+
+# The host eventrecorder-web is the name of the service in the shared local dev docker-compose file
+eventrecorder_url: "http://eventrecorder-web:8000/record/"
+
+jwt:
+  secret_key: "test-secret"
+  expire_days: 3
+
+authorized_users:
+  test:
+    username: "test"
+    # password: test
+    hashed_password: "$2b$12$ywoUfV415DX6holRYop.rej52IallHR21iZMpNfQ0JnJEsDdn2U6y"
+    disabled: false
+
+# Disable sentry
+sentry_dsn:

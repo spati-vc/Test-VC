@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventrecorder-heroku-hook-dev
+  namespace: default
+  labels:
+    app: eventrecorder-heroku-hook-dev
+    env: dev
+    category: data
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app: eventrecorder-heroku-hook-dev
+    env: dev
+    category: data

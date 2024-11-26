@@ -1,0 +1,4 @@
+logging:
+    logger_options:
+        base_level: 'INFO'
+

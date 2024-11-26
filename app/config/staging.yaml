@@ -1,0 +1,32 @@
+logging:
+  logger_options:
+    base_level: "INFO"
+
+eventrecorder_url: "https://eventrecorder-core-staging.apps.drinkcirkul.com"
+eventrecorder_conn_pool_size: 50
+
+jwt:
+  secret_key.SECRET: "duploservices-core-staging-eventrecorder-heroku-hook/jwt"
+  expire_days: 3
+
+authorized_users:
+  ssmall:
+    username: "ssmall"
+    hashed_password.SECRET: "duploservices-core-staging-eventrecorder-heroku-hook/ssmall"
+    disabled: false
+  mschroth:
+    username: "mschroth"
+    hashed_password.SECRET: "duploservices-core-staging-eventrecorder-heroku-hook/mschroth"
+    disabled: false
+  bkayastha:
+    username: "bkayastha"
+    hashed_password.SECRET: "duploservices-core-staging-eventrecorder-heroku-hook/bkayastha"
+    disabled: false
+  scolburn:
+    username: "scolburn"
+    hashed_password.SECRET: "duploservices-core-staging-eventrecorder-heroku-hook/scolburn"
+    disabled: false
+  production_tracking:
+    username: "production_tracking"
+    hashed_password.SECRET: "duploservices-core-staging-eventrecorder-heroku-hook/production_tracking"
+    disabled: false

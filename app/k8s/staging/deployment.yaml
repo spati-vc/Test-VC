@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventrecorder-heroku-hook-staging
+  namespace: default
+  labels:
+    app: eventrecorder_heroku_hook_staging
+    env: staging
+    category: data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventrecorder_heroku_hook_staging
+      env: staging
+      category: data
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 100%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: eventrecorder_heroku_hook_staging
+        env: staging
+        category: data
+    spec:
+      containers:
+        - name: &container_name eventrecorder-heroku-hook-staging
+          image: 016538182541.dkr.ecr.us-east-1.amazonaws.com/eventrecorder_heroku_hook:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: EVENTRECORDER_HEROKU_HOOK_MODE
+              value: "staging"
+            - name: LIMIT_MAX_REQUESTS
+              value: "100000"
+          volumeMounts:
+            - name: eventrecorder-heroku-hook-staging-secrets
+              mountPath: /secrets/eventrecorder_heroku_hook
+              readOnly: true
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
+      restartPolicy: Always
+      volumes:
+        - name: eventrecorder-heroku-hook-staging-secrets
+          secret:
+            secretName: eventrecorder-heroku-hook-staging-secrets

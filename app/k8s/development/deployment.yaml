@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventrecorder-heroku-hook-dev
+  namespace: default
+  labels:
+    app: eventrecorder-heroku-hook-dev
+    env: dev
+    category: data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventrecorder-heroku-hook-dev
+      env: dev
+      category: data
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: eventrecorder-heroku-hook-dev
+        env: dev
+        category: data
+    spec:
+      containers:
+        - name: &container_name eventrecorder-heroku-hook-dev
+          image: 016538182541.dkr.ecr.us-east-2.amazonaws.com/eventrecorder-heroku-hook-dev:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: EVENTRECORDER_MODE
+              value: "development"
+            - name: LIMIT_MAX_REQUESTS
+              value: "100000"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
+      restartPolicy: Always

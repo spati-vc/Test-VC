@@ -1,0 +1,21 @@
+fastapi_app_settings:
+    title: '{config.project_name}'
+    version: "1.1.0"
+
+logging:
+    logger_type: 'stdout'
+    logger_options:
+        line_format: '%(asctime)s - %(name)s - pid:%(process)d - %(levelname)s - %(message)s'
+        base_level: 'INFO'
+        name: 'cirkul.{config.project_name}'
+
+eventrecorder_url: "http://localhost:8000"
+eventrecorder_conn_pool_size: 10
+
+jwt:
+    secret_key: "devsecret"
+    algorithm: "HS256"
+    expire_days: 3
+
+# Add fastapi project in sentry and get the DSN url from https://cirkul.sentry.io/projects/
+sentry_dsn: "https://8064e1d5a779a185816d1181bc30e9c3@o4504023397564416.ingest.us.sentry.io/4506876497625088"

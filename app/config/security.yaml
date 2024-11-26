@@ -1,0 +1,17 @@
+logging:
+  logger_options:
+    base_level: "INFO"
+
+eventrecorder_url: "https://eventrecorder-sec-staging.apps.drinkcirkul.com"
+eventrecorder_conn_pool_size: 50
+
+jwt:
+  secret_key.SECRET: "duploservices-sec-staging-eventrecorder-heroku-hook/jwt"
+  expire_days: 3
+
+authorized_users:
+
+  production_tracking:
+    username: "production_tracking"
+    hashed_password.SECRET: "duploservices-sec-staging-eventrecorder-heroku-hook/production_tracking"
+    disabled: false

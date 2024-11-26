@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventrecorder-heroku-hook-staging
+  namespace: default
+  labels:
+    app: eventrecorder_heroku_hook_staging
+    env: staging
+    category: data
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # CERT for *.webhook.drinkcirkul.com
+    # This service runs on eventrecorder-staging.webhook.drinkcirkul.com
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:016538182541:certificate/f2b6e301-d4e6-4fa9-9662-ab5694771e15
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+    - port: 443
+      targetPort: 8000
+      protocol: TCP
+      name: https
+  selector:
+    app: eventrecorder_heroku_hook_staging
+    env: staging
+    category: data
